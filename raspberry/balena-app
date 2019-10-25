@@ -1,0 +1,2 @@
+RUN apt-get install python-pip libglib2.0-dev
+RUN pip install bluepy
