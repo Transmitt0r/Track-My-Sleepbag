@@ -75,4 +75,4 @@ def query_all_documents(query_string: str) -> str:
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(ssl_context=('cert.pem', 'key.pem'))
