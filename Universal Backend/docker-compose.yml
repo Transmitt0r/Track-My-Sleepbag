@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      CONFIG_MONGODB_ADMINUSERNAME: root
+      CONFIG_MONGODB_ADMINPASSWORD: example
+      FLASK_BASIC_AUTH_USERNAME: root
+      FLASK_BASIC_AUTH_PASSWORD: example
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    restart: always
+
+volumes:
+  db_data:
