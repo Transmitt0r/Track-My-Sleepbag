@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from bson.json_util import dumps
 import datetime
 import re
+from OpenSSL import SSL
 
 
 mongo_user = os.environ['CONFIG_MONGODB_ADMINUSERNAME']
@@ -73,6 +74,11 @@ def get_data(uid: str) -> str:
 def query_all_documents(query_string: str) -> str:
     return dumps(db.api.find(query_string))
 
+
+context = SSL.Context(SSL.TLSv1_2_METHOD)
+context.use_privatekey_file('privkey.pem')
+context.use_certificate_chain_file('fullchain.pem')
+context.use_certificate_file('cert.pem')
 
 if __name__ == '__main__':
     app.run(ssl_context=('cert.pem', 'key.pem'))
