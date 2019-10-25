@@ -5,6 +5,3 @@ setup:
 build:
   docker:
     web: Universal\ Backend/Dockerfile
-  config:
-    FLASK_BASIC_AUTH_USERNAME: root
-    FLASK_BASIC_AUTH_PASSWORD: example
