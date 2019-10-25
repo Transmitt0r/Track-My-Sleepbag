@@ -7,13 +7,11 @@ import datetime
 import re
 
 
-mongo_user = os.environ['CONFIG_MONGODB_ADMINUSERNAME']
-mongo_password = os.environ['CONFIG_MONGODB_ADMINPASSWORD']
+mongo_uri = os.environ['MONGODB_URI']
 basic_user = os.environ['FLASK_BASIC_AUTH_USERNAME']
 basic_password = os.environ['FLASK_BASIC_AUTH_PASSWORD']
-
-client = MongoClient('db', username=mongo_user, password=mongo_password)
-db = client.universalbackend
+db = MongoClient(mongo_uri)
+#db = client.universalbackend
 db.api.create_index("uid", unique=True)
 
 app = Flask(__name__)
