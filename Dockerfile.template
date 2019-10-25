@@ -7,8 +7,3 @@ python-pip \
 libglib2.0-dev \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN pip install requests
-
-RUN git clone https://github.com/IanHarvey/bluepy.git
-RUN cd bluepy
-RUN python setup.py build
-RUN python setup.py install
