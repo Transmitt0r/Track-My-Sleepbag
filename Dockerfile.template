@@ -1,8 +1,14 @@
 FROM balenalib/%%BALENA_MACHINE_NAME%%
 
 RUN apt-get update && apt-get install -y \
+git \
+build-essential \
 python-pip \
 libglib2.0-dev \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN pip install bluepy \
-requests
+RUN pip install requests
+
+RUN git clone https://github.com/IanHarvey/bluepy.git
+RUN cd bluepy
+RUN python setup.py build
+RUN python setup.py install
