@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python2.7
 
 RUN apt-get update && apt-get install -y \
 python-pip \
