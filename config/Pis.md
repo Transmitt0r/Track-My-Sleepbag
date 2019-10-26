@@ -37,7 +37,15 @@ sudo chmod 644 /lib/systemd/system/eddystone.service
 sudo systemctl daemon-reload
 sudo systemctl enable eddystone.service
 
-sudo reboot
+## On pi 4
+scp lightning.service pi@hostname:/home/pi
+sudo su -
+cp lightning.service /lib/systemd/system/
+chmod 644 /lib/systemd/system/lightning.service
+
+systemctl daemon-reload
+systemctl enable lightning.service
+reboot
 
 sudo hciconfig hci0 up
 sudo hciconfig hci0 leadv 3

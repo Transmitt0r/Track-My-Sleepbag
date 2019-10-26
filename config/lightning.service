@@ -1,0 +1,10 @@
+ [Unit]
+ Description=Turn on lightning bulbs
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/home/pi/start_python_lightning.sh
+
+ [Install]
+ WantedBy=multi-user.target
