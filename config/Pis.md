@@ -15,6 +15,9 @@ Pi 3:
     hostname: sweetdreams3
     string: 0x08 0x0008 17 02 01 06 03 03 aa fe 0f 16 aa fe 10 5f 03 74 72 61 75 2e 6d 65 2f 33 00 00 00 00 00 00 00 00
     url: https://trau.me/3
+Pi 4:
+    ip: 10.120.52.96
+    hostname: sweetdreams4
 
 user: pi
 pw: sweetdreams

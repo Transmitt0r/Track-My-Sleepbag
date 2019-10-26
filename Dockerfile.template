@@ -5,5 +5,6 @@ git \
 build-essential \
 python-pip \
 libglib2.0-dev \
+bluez \
 && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN pip install requests
