@@ -1,0 +1,3 @@
+[submodule "hack-backend"]
+	path = hack-backend
+	url = https://github.com/Transmitt0r/hack-backend
