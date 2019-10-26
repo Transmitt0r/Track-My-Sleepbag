@@ -1,0 +1,10 @@
+version: '2'
+services:
+  indoor-localization:
+    build: ./indoor-localization
+    network_mode: host
+    expose:
+      - "5000"
+  ibeacon:
+    build: ./ibeacon
+    network_mode: host
