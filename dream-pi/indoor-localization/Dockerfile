@@ -1,16 +1,16 @@
-FROM balenalib/raspberrypi3-python:3.7-stretch-run
+FROM balenalib/raspberrypi3-node:12-stretch-run
 
-RUN install_packages libbluetooth-dev gcc build-essential
-RUN install_packages pkg-config libboost-python-dev libboost-thread-dev libbluetooth-dev>=4.101 libglib2.0-dev python-dev libglib2.0-dev libboost-python-dev libboost-thread-dev 
+RUN install_packages bluetooth bluez libbluetooth-dev libudev-dev
 
-# Set our working directory
+# Defines our working directory in container
 WORKDIR /usr/src/app
 
-# Copy requirements.txt first for better cache on later pushes
-COPY requirements.txt requirements.txt
+# Copies the package.json first for better cache on later pushes
+COPY package.json package.json
 
-# pip install python deps from requirements.txt on the resin.io build server
-RUN pip install -r requirements.txt
+# This install npm dependencies on the balena build server,
+# making sure to clean up the artifacts it creates in order to reduce the image size.
+RUN JOBS=MAX npm install --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
 
 # This will copy all files in our root to the working  directory in the container
 COPY . ./
@@ -19,4 +19,4 @@ COPY . ./
 ENV UDEV=1
 
 # main.py will run when container starts up on the device
-CMD ["python","-u","src/main.py"]
+CMD ["npm", "start"]

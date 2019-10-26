@@ -1,10 +1,17 @@
 version: '2'
 services:
-  indoor-localization:
-    build: ./indoor-localization
-    network_mode: host
-    expose:
-      - "5000"
+  #indoor-localization:
+  #  build: ./indoor-localization
+  #  network_mode: host
+  #  expose:
+  #    - "5000"
   ibeacon:
     build: ./ibeacon
     network_mode: host
+    privileged: true
+    #image: dominikth/rpi-docker-ibeacon
+    #environment:
+    #  - PI=True
+    labels:
+      io.balena.features.dbus: '1'
+      

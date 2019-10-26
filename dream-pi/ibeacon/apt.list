@@ -1,0 +1,9 @@
+dbus
+systemd-sysv
+bluez
+bluez-firmware
+git
+python3
+python3-pip
+python
+python-pip
