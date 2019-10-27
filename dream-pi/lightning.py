@@ -1,31 +1,58 @@
-from gpiozero import LED
 from time import sleep
+import requests
+from requests.auth import HTTPBasicAuth
+import json
 
-import urllib2, base64, json
+username = "admin"
+password = "adminadmin123"
 
+reserved_url = "https://dreambag.herokuapp.com/data/reserved"
+hue_url = "http://10.120.51.245/api/pb6rOn7EdLcBkKGx2Ovo7u719Dzqx8DJ2gxVrOg7/lights/3/state"
 
-led_green = LED(20) # red
-led_red = LED(21) # green
+red_h = 0
+red_s = 254
+red_v = 254
+
+green_h = 25500
+green_s = 254
+green_v = 254
+
+def make_red():
+    r = requests.put(hue_url, json={
+        "on": True,
+        "bri": red_v,
+        "hue": red_h,
+        "sat": red_s,
+    })
+
+def make_green():
+    r = requests.put(hue_url, json={
+        "on": True,
+        "bri": green_v,
+        "hue": green_h,
+        "sat": green_s,
+    })
+
+auth = HTTPBasicAuth(username, password)
+
+#user "pb6rOn7EdLcBkKGx2Ovo7u719Dzqx8DJ2gxVrOg7"
+
+#led_green = LED(20) # red
+#led_red = LED(21) # green
 red_on = False
 
 while True:
     if red_on:
-        led_red.on()
-        led_green.off()
+        make_red()
     else:
-        led_red.off()
-        led_green.on()
-    sleep(1)
+        make_green()
+    sleep(0.3)
 
-    password = ""
+    
 
-    request = urllib2.Request("https://dreambag.herokuapp.com/data/reserved")
-    base64string = base64.b64encode('%s:%s' % (username, password))
-    request.add_header("Authorization", "Basic %s" % base64string)
-    result = urllib2.urlopen(request)
-    content_json = result.read()
+    r = requests.get(reserved_url, auth=auth)
+    json_status = r.json()
     try:
-        json_status = json.loads(content_json)
         content = json_status["data"]["reserved"]
     except:
         content = False
